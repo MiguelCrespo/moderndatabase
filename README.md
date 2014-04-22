@@ -3,13 +3,23 @@ ModernDataBase (ORM simple para la administracion de bases de datos MYSQL)
 
 ModernDataBase es un ORM que permite el acceso y la administracion de bases de datos mysql de forma simple y sencilla.
 
-==============================
+#DESCARGAS
+##ModernDataBase.jar:
+Libreria lista para ser incluida en tu proyecto (**esta libreria depende del conector *mysql-connector-java***)
+###Link descarga: http://1drv.ms/1lBV9hy
+##mysql-connector-java:
+Dependencia del ModernDataBase para las conecciones con las bases de datos **MySQL** en su version:
+***mysql-connector-java-5.1.29-bin***
+###Link descarga: http://1drv.ms/1lBVMb2
+
+
 #TUTORIAL
 
 Para apovechar todas las opciones que nos ofrece ***ModernDataBase*** es necesario realizar determinadas configuraciones antes de ponerla a arrancar.
 
 #CONFIGURACION
 Paquete "***Models***"
+
 Para comenzar a usar ModernDataBase **es necesario tener dentro del proyecto java un paquete llamado "*models***"  (sin las comillas), **es obligatorio la implementacion de este paquete asi como su nombre**, dentro de este vamos a crear todos los modelos que necesite nuestra aplicacion asi como los datos de connecion a la base de datos.
 
 ##Creando un Modelo
