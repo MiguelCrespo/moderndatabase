@@ -78,12 +78,6 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<Task> tasks(){
-        TaskModel taskModel = new TaskModel();
-        System.out.println(id);
-        return taskModel.getRows("users_id = "+id);
-    }
-
     public String getName() {
         return name;
     }
