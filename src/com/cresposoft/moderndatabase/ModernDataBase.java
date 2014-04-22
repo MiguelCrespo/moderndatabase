@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * ModernDataBase Easy manager of the MySQL
  *
  * @author Cresposoft Technology <miguel.crespo6@gmail.com>
- * @version 0.1
- * @since 2014-03-14
+ * @version 0.3
+ * @since 2014-04-22
  */
 public abstract class ModernDataBase {
 
@@ -23,7 +23,7 @@ public abstract class ModernDataBase {
     /**
      * Constructor.
      *
-     * @param classname name of the object that you want that this class return
+     * @param _class name of the object that you want that this class return
      * .
      * @param table Name of the table in the database that this you want
      * represent.
@@ -37,7 +37,7 @@ public abstract class ModernDataBase {
     }
 
     public double getVersion() {
-        return 0.2;
+        return 0.3;
     }
 
     /**
@@ -82,7 +82,6 @@ public abstract class ModernDataBase {
     }
 
     public <T> T find(int id) {
-        // Class<T> _class2 = (Class<T>) _class;
         T object = null;
         try {
 
@@ -104,33 +103,61 @@ public abstract class ModernDataBase {
 
         return object;
     }
+    public <T> T findbyKey(String key) {
+        T object = null;
+        try {
+            //System.out.println(getValueField(_class.getName() + "Model", "PK", _class.newInstance()));
+            //System.out.println(table);
+            ResultSet result = query.query_select(table, " WHERE "+getValueField(_class.getName() + "Model", "PK", _class.newInstance())+"='" + key+"'");
+            String[] row = new String[columns.length];
+
+            if (!result.next()) {
+                return null;
+            }
+            for (int i = 0; i < row.length; i++) {
+                row[i] = result.getString(columns[i]);
+
+            }
+            object = (T) createObject(row);
+
+        } catch (SQLException | IllegalAccessException | InstantiationException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return object;
+    }
 
     public <T> T insert(Object object) {
-        //Class<T> _class2 = (Class<T>) _class;
         T objectresult = null;
         try {
+            ResultSet result2;
             String[] array = fieldsObject(object);
+            String[] row = new String[columns.length];
             int result = query.query_insert(table, array);
             if (result == 1) {
                 if (hasField(_class.getName() + "Model", "PK")) {
-                    System.out.println("where " + getValueField(_class.getName() + "Model", "PK", object) + "=" + array[1] + " LIMIT 1");
-                    ResultSet result2 = query.query_select(table, "where " + getValueField(_class.getName() + "Model", "PK", object) + "=" + array[1] + " LIMIT 1");
-                    String[] row = new String[columns.length];
+                   // System.out.println("where " + getValueField(_class.getName() + "Model", "PK", object) + "=" + array[1] + " LIMIT 1");
+                     result2 = query.query_select(table, "where " + getValueField(_class.getName() + "Model", "PK", object) + "=" + array[1] + " LIMIT 1");
+                    row = new String[columns.length];
+                }else{
+                    // System.out.println("where id=" + array[1] + " LIMIT 1");
+                    result2 = query.query_lastid(table);
+                    row = new String[columns.length];
 
+                }
                     if (!result2.next()) {
                         return null;
                     }
                     for (int i = 0; i < row.length; i++) {
                         row[i] = result2.getString(columns[i]);
-
                     }
                     try {
                         objectresult = (T) createObject(row);
-                        System.out.println(objectresult.getClass().getName());
+                      //  System.out.println(objectresult.getClass().getName());
                     } catch (InstantiationException e) {
                         e.printStackTrace();
                     }
-                }
+
 
             }
 
@@ -158,7 +185,7 @@ public abstract class ModernDataBase {
             Field aliasField = _class2.getDeclaredField(field);
             return true;
         } catch (NoSuchFieldException | ClassNotFoundException e) {
-            e.printStackTrace();
+           // e.printStackTrace();
             return false;
         }
     }
@@ -177,7 +204,7 @@ public abstract class ModernDataBase {
         return null;
     }
 
-    public boolean delete(int id) {  // when the parameter is a int
+    public boolean delete(int id) {  // when the parameter is an int
 
         query.query_delete(table, id);
         return true;
@@ -217,7 +244,7 @@ public abstract class ModernDataBase {
         return (T) obj;
     }
 
-    public String[] fieldsObject(Object object) throws NoSuchFieldException, IllegalAccessException {
+    private String[] fieldsObject(Object object) throws NoSuchFieldException, IllegalAccessException {
         String[] values = new String[columns.length];
         for (int i = 0; i < columns.length; i++) {
             Field aliasField = _class.getDeclaredField(columns[i]);

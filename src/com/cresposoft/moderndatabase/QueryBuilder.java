@@ -6,8 +6,8 @@ import java.sql.*;
  * QueryBuilder builder of queries for mysql
  *
  * @author Cresposoft Technology <miguel.crespo6@gmail.com>
- * @version 0.1
- * @since 2014-03-18
+ * @version 0.3
+ * @since 2014-04-21
  */
 public final class QueryBuilder {
 
@@ -19,15 +19,19 @@ public final class QueryBuilder {
     private Statement query;
 
     private QueryBuilder() {
-        this.url = "jdbc:mysql://localhost:3307/tryphp";
-        this.user = "root";
-        this.pass = "usbw";
+        Config config = new Config();
+        this.url = "jdbc:mysql://"+config.HOST+":"+config.PORT+"/"+config.DATABASE+"";
+        this.user = config.USERNAME;
+        this.pass = config.PASSWORD;
         connection();
     }
 
     private boolean connection() {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
+           // System.out.println(url);
+           // System.out.println(user);
+          //  System.out.println(pass);
             connection = DriverManager.getConnection(url, user, pass);
             query = connection.createStatement();
             return true;
@@ -93,6 +97,7 @@ public final class QueryBuilder {
     public ResultSet query_select(String table, String filter) {
         ResultSet resultSet = null;
         try {
+           // System.out.println("SELECT * FROM " + table + " " + filter);
             resultSet = query.executeQuery("SELECT * FROM " + table + " " + filter);
 
         } catch (SQLException e) {
@@ -110,6 +115,21 @@ public final class QueryBuilder {
             e.printStackTrace();
         }
         return 0;
+    }
+    public ResultSet query_lastid(String table){
+        ResultSet resultSet = null;
+        ResultSet resultSet2 = null;
+        try {
+            resultSet = query.executeQuery("SELECT @@identity AS id");
+            if (!resultSet.next()) {
+                return null;
+            }
+           // System.out.println(resultSet.getString("id"));
+            resultSet2 =  query_select(table, "where id="+resultSet.getString("id"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet2;
     }
 
     public String[] getColumnsnames(ResultSet result) {
