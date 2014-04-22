@@ -13,7 +13,10 @@ Paquete "***Models***"
 Para comenzar a usar ModernDataBase **es necesario tener dentro del proyecto java un paquete llamado "*models***"  (sin las comillas), **es obligatorio la implementacion de este paquete asi como su nombre**, dentro de este vamos a crear todos los modelos que necesite nuestra aplicacion asi como los datos de connecion a la base de datos.
 
 ##Creando un Modelo
-**Todo modelo dentro de ModernDataBase necesita extender de la clase *ModernDataBase*** y tambien **es obligatorio que los modelos terminen en *Model*** para cuestion de estandar por ejemplo "UsuarioModel", "RegistroModel", etc. Tambien **es obligatorio que cada tabla tenga un ID autoincrement**. La estructura general de los modelos es la siguiente:
+**Todo modelo dentro de ModernDataBase necesita extender de la clase *ModernDataBase*** y tambien **es obligatorio que los modelos terminen en *Model*** para cuestion de estandar por ejemplo "UsuarioModel", "RegistroModel", etc. 
+
+Tambien **es obligatorio que cada tabla tenga un ID autoincrement**. 
+La estructura general de los modelos es la siguiente:
 
 ```java
 package models; // es obligatorio tener el modelo dentro del paquete models
