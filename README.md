@@ -6,11 +6,11 @@ ModernDataBase es un ORM que permite el acceso y la administracion de bases de d
 #DESCARGAS
 ##ModernDataBase.jar:
 Libreria lista para ser incluida en tu proyecto (**esta libreria depende del conector *mysql-connector-java***)
-###Link descarga: http://1drv.ms/1lBV9hy
+###Link descarga: https://dl.dropboxusercontent.com/s/92egs70zwzqgv1p/moderndatabase.jar?dl=1&token_hash=AAGLDQ7VtzgtJicZkaMbuXByh7irPIAeleAGK03QBtAgFQ
 ##mysql-connector-java:
 Dependencia del ModernDataBase para las conecciones con las bases de datos **MySQL** en su version:
 ***mysql-connector-java-5.1.29-bin***
-###Link descarga: http://1drv.ms/1lBVMb2
+###Link descarga: https://dl.dropboxusercontent.com/s/hecww6enhzznylx/mysql-connector-java-5.1.29-bin.jar?dl=1&token_hash=AAGVnNFcBFGU4nIQVAOGJZdVlAeFd88ye0ZE58hqt9awDQ
 
 
 #TUTORIAL
@@ -136,7 +136,7 @@ A continuacion tienes una lista con las funciones disponibles, asi como ejemplos
 ##getRows():
 Nos permite obtener los registros de los modelos, por ejemplo para el modelo ***UserModel*** declarado previamente seria:
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 ArrayList<User> usuarios = modelousuario.getRows(""); 
 // esto nos devolvera un arraylist con los registros en la tabla de usuarios
 ```
@@ -148,14 +148,14 @@ ArrayList<User> usuarios = modelousuario.getRows("id>7");
 ##find(int id):
 Este metodo nos permite encontrar un usuario por su id si le pasamos como parametro un entero, por ejemplo:
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 User usuario = modelousuario.find(1); 
 // Nos devolvera el objeto usuario cuyo registro en la base de datos tenga de id 1
 ```
 ##find(Object object):
 Este metodo nos permite encontrar un usuario pasando como parametro un objeto,por ejemplo:
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 User usuario1 = new user("Juan", "juan@gmail.com", "contrasena");
 User usuario2 = modelousuario.find(usuario1); 
 // esto nos devolvera el objeto que representa usuario1 en la base de datos
@@ -163,14 +163,14 @@ User usuario2 = modelousuario.find(usuario1);
 ##findbyKey(String key):
 Este metodo nos permite buscar en la base de datos por el PK que declaramos anteriormente dentro del modelo, si no declaramos ningun PK no lo podremos usar, por ejemplo en el modelo de usuario declaramos el PK como email, asi que podremos realizar la siguiente operacion:
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 User usuario = modelousuario.findbyKey("juan@gmail.com");
 //esto nos devolvera un objeto usuario con la informacion de Juan 
 ```
 ##insert(Object object):
 Este metodo nos permite ingresar un registro a la base de datos, por ejemplo:
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 User usuario = new Usuario("Miguel", "miguel.crespo6@gmail.com", "contrasena de miguel");
 modelousuario.insert(usuario);
 //con esta simple linea ingresamos un nuevo registro en la base de datos esta funcion si lo queremos tambien nos retornara un objeto de tipo User que referenciara al objeto en la base de datos:
@@ -179,7 +179,7 @@ User usuario2 = modelousuario.insert(usuario);
 ##update(Object object):
 Este metodo nos permite actualizar un objecto en la base de datos:
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 User usuario = modelousuario.findbyKey("miguel.crespo6@gmail.com"); // obtenemos el objeto de la base de datos
 usuario.setPassword("nueva contraseña");
 modelousuario.update(usuario);
@@ -188,13 +188,13 @@ modelousuario.update(usuario);
 ##delete(int id):
 Este metodo elimina un registro de acuerdo al id
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 modelousuario.delete(2);
 //con estas lineas hemos eliminado al usuario cuyo id en la base de datos es 2
 ```
 ##delete(Object object):
 ```java
-UserModel modelousuario = UserModel();
+UserModel modelousuario = new UserModel();
 User usuario = modelousuario.findbyKey("miguel.crespo6@gmail.com");
 modelousuario.delete(usuario);
 //con estas lineas hemos eliminado al usuario cuyo email es miguel.crespo6@gmail.com.
