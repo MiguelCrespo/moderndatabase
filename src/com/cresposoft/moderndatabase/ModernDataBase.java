@@ -6,11 +6,10 @@ import java.util.ArrayList;
 
 /**
  * ModernDataBase Easy manager of the MySQL
- * https://github.com/cresposoft/moderndatabase
- * 
+ *
  * @author Cresposoft Technology <miguel.crespo6@gmail.com>
- * @version 0.4
- * @since 2014-04-27
+ * @version 0.3
+ * @since 2014-04-22
  */
 public abstract class ModernDataBase {
 
@@ -20,7 +19,6 @@ public abstract class ModernDataBase {
     String table;
     String[] columns;
     QueryBuilder query;
-    private static double VERSION = 0.4;
 
     /**
      * Constructor.
@@ -39,7 +37,7 @@ public abstract class ModernDataBase {
     }
 
     public double getVersion() {
-        return VERSION;
+        return 0.3;
     }
 
     /**
@@ -138,9 +136,8 @@ public abstract class ModernDataBase {
             int result = query.query_insert(table, array);
             if (result == 1) {
                 if (hasField(_class.getName() + "Model", "PK")) {
-                    String key = getValueField(_class.getName() + "Model", "PK", object);
-                    //System.out.println("where " + key + "=" + getValueField(object,key )+ " LIMIT 1");
-                     result2 = query.query_select(table, "where " + key+ "='" +getValueField(object,key ) + "' LIMIT 1");
+                   // System.out.println("where " + getValueField(_class.getName() + "Model", "PK", object) + "=" + array[1] + " LIMIT 1");
+                     result2 = query.query_select(table, "where " + getValueField(_class.getName() + "Model", "PK", object) + "=" + array[1] + " LIMIT 1");
                     row = new String[columns.length];
                 }else{
                     // System.out.println("where id=" + array[1] + " LIMIT 1");
@@ -156,7 +153,7 @@ public abstract class ModernDataBase {
                     }
                     try {
                         objectresult = (T) createObject(row);
-                        //System.out.println(objectresult.getClass().getName());
+                      //  System.out.println(objectresult.getClass().getName());
                     } catch (InstantiationException e) {
                         e.printStackTrace();
                     }
@@ -169,9 +166,6 @@ public abstract class ModernDataBase {
         }
 
         return objectresult;
-    }
-    public <T> T create(Object object) {
-        return insert(object);
     }
 
     public int update(Object object) {
@@ -253,22 +247,11 @@ public abstract class ModernDataBase {
     private String[] fieldsObject(Object object) throws NoSuchFieldException, IllegalAccessException {
         String[] values = new String[columns.length];
         for (int i = 0; i < columns.length; i++) {
-            values[i] = getValueField(object, columns[i]);
-        }
-        return values;
-    }
-
-    private String getValueField(Object object, String field){
-        try {
-            Field aliasField = _class.getDeclaredField(field);
+            Field aliasField = _class.getDeclaredField(columns[i]);
             aliasField.setAccessible(true);
             Object valor = aliasField.get(object);
-            return valor.toString();
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+            values[i] = valor.toString();
         }
-        return null;
-
-
+        return values;
     }
 }
