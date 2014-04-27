@@ -1,23 +1,24 @@
-ModernDataBase (ORM simple para la administracion de bases de datos MYSQL)
-================================
+#ModernDataBase
 
+##ORM simple para la administracion de bases de datos MYSQL
 ModernDataBase es un ORM que permite el acceso y la administracion de bases de datos mysql de forma simple y sencilla.
 
 #DESCARGAS
-##ModernDataBase.jar:
-Libreria lista para ser incluida en tu proyecto (**esta libreria depende del conector *mysql-connector-java***)
-###Link descarga: https://dl.dropboxusercontent.com/s/92egs70zwzqgv1p/moderndatabase.jar?dl=1&token_hash=AAGLDQ7VtzgtJicZkaMbuXByh7irPIAeleAGK03QBtAgFQ
+##ModernDataBase-0.4.jar:
+Libreria(JAR) lista para ser incluida en tu proyecto
+###Link descarga: https://dl-web.dropbox.com/get/Compartido/moderndatabase-0.4.jar?_subject_uid=74108772&w=AABVL7nJLkFm-rTTkFDJktupdRWCf0xC-DnfofnyYLHHNQ&dl=1
 ##mysql-connector-java:
 Dependencia del ModernDataBase para las conecciones con las bases de datos **MySQL** en su version:
 ***mysql-connector-java-5.1.29-bin***
 ###Link descarga: https://dl.dropboxusercontent.com/s/hecww6enhzznylx/mysql-connector-java-5.1.29-bin.jar?dl=1&token_hash=AAGVnNFcBFGU4nIQVAOGJZdVlAeFd88ye0ZE58hqt9awDQ
 
 
-#TUTORIAL
+#CONFIGURACION
 
 Para apovechar todas las opciones que nos ofrece ***ModernDataBase*** es necesario realizar determinadas configuraciones antes de ponerla a arrancar.
 
-#CONFIGURACION
+##Paquete Models
+
 Paquete "***Models***"
 
 Para comenzar a usar ModernDataBase **es necesario tener dentro del proyecto java un paquete llamado "*models***"  (sin las comillas), **es obligatorio la implementacion de este paquete asi como su nombre**, dentro de este vamos a crear todos los modelos que necesite nuestra aplicacion asi como los datos de connecion a la base de datos.
