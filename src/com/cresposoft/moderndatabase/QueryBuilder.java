@@ -6,8 +6,10 @@ import java.sql.*;
  * QueryBuilder builder of queries for mysql
  *
  * @author Cresposoft Technology <miguel.crespo6@gmail.com>
- * @version 0.3
- * @since 2014-04-21
+ * https://github.com/cresposoft/moderndatabase
+ * 
+ * @version 0.4
+ * @since 2014-04-27
  */
 public final class QueryBuilder {
 
@@ -29,9 +31,9 @@ public final class QueryBuilder {
     private boolean connection() {
         try {
             Class.forName("org.gjt.mm.mysql.Driver");
-           // System.out.println(url);
-           // System.out.println(user);
-          //  System.out.println(pass);
+            //System.out.println(url);
+            //System.out.println(user);
+            //System.out.println(pass);
             connection = DriverManager.getConnection(url, user, pass);
             query = connection.createStatement();
             return true;
@@ -53,6 +55,7 @@ public final class QueryBuilder {
     }
 
     public int query_insert(String table, String[] array) throws SQLException {
+        //System.out.println("INSERT INTO " + table + " VALUES (NULL ," + buildValues(array) + ")");
         return query.executeUpdate("INSERT INTO " + table + " VALUES (NULL ," + buildValues(array) + ")");
     }
 
@@ -97,7 +100,7 @@ public final class QueryBuilder {
     public ResultSet query_select(String table, String filter) {
         ResultSet resultSet = null;
         try {
-           // System.out.println("SELECT * FROM " + table + " " + filter);
+            //System.out.println("SELECT * FROM " + table + " " + filter);
             resultSet = query.executeQuery("SELECT * FROM " + table + " " + filter);
 
         } catch (SQLException e) {
@@ -108,7 +111,7 @@ public final class QueryBuilder {
 
     public int query_update(String table, String[] array, String[] columns) {
 
-        //System.out.println("UPDATE " + table +" "+buildValues(array, columns)+" WHERE id="+array[0]);
+       // System.out.println("UPDATE " + table +" "+buildValues(array, columns)+" WHERE id="+array[0]);
         try {
             return query.executeUpdate("UPDATE " + table + " " + buildValues(array, columns) + " WHERE id=" + array[0]);
         } catch (SQLException e) {
@@ -124,7 +127,7 @@ public final class QueryBuilder {
             if (!resultSet.next()) {
                 return null;
             }
-           // System.out.println(resultSet.getString("id"));
+            //System.out.println(resultSet.getString("id"));
             resultSet2 =  query_select(table, "where id="+resultSet.getString("id"));
         } catch (SQLException e) {
             e.printStackTrace();

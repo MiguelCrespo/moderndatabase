@@ -1,12 +1,15 @@
 package com.cresposoft.moderndatabase;
 
 import java.lang.reflect.Field;
+
 /**
- * MDB Configuration 
+ * Moderndatabase Configiguration
  *
  * @author Cresposoft Technology <miguel.crespo6@gmail.com>
- * @version 0.3
- * @since 2014-04-21
+ * https://github.com/cresposoft/moderndatabase
+ * 
+ * @version 0.4
+ * @since 2014-04-27
  */
 public class Config {
     String[] columns = {
